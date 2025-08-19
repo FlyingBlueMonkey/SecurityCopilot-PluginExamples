@@ -1,0 +1,23 @@
+Descriptor:
+  Name: NWSExamplePlugin
+  DisplayName: NWS Example Plugin
+  DescriptionDisplay: NWS Example Plugin provides weather data and forecasts from the National Weather Service.
+  Description: |-
+    Use this skill-set to call the NWS API if the user provides a location and wants to know the current weather conditions or forecast.
+    - This skill only invokes the NWS API.
+    - GetWeather: Retrieves current weather conditions for a specific location.
+    - GetForecast: Retrieves the weather forecast for a specific location.
+  Category: Other
+  Icon: https://www.weather.gov/images/brand/Weather-Logo-White.png
+  SupportedAuthTypes:
+    - ApiKey
+  Authorization:
+    Type: APIKey
+    Key: Key
+    Location: Header
+    AuthScheme: ''
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://gist.githubusercontent.com/flyingbluemonkey/somethingsomething/nwsCopilotPlugin-OpenAPI.yaml

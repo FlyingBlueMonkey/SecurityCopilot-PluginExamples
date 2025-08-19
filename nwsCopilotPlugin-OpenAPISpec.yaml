@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: National Weather Service API
+  description: |
+    This API allows access to U.S. National Weather Service (NWS) data, including forecast and metadata by geographical coordinates and grid points.
+    Official documentation: [weather.gov API](https://www.weather.gov/documentation/services-web-api)
+  version: 1.0.0
+servers:
+  - url: https://api.weather.gov
+    description: Production server
+
+paths:
+  /points/{latitude},{longitude}:
+    get:
+      operationId: getPointMetadata
+      summary: Get metadata for a geographical point
+      description: |
+        Returns metadata for a given latitude and longitude, including the gridpoint location and office responsible.
+      parameters:
+        - name: latitude
+          in: path
+          required: true
+          description: Latitude of the point (decimal degrees)
+          schema:
+            type: number
+            format: float
+        - name: longitude
+          in: path
+          required: true
+          description: Longitude of the point (decimal degrees)
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: Point metadata returned successfully
+          content:
+            application/geo+json:
+              schema:
+                type: object
+        '400':
+          description: Bad request (invalid coordinates)
+        '404':
+          description: Point not found
+        '500':
+          description: Internal server error
+
+  /gridpoints/{office}/{gridX},{gridY}/forecast:
+    get:
+      operationId: getGridpointForecast
+      summary: Get forecast for a grid point
+      description: |
+        Returns forecast data for a specified grid location based on office ID and grid coordinates.
+      parameters:
+        - name: office
+          in: path
+          required: true
+          description: 4-letter office ID (e.g. "BOU" for Boulder)
+          schema:
+            type: string
+        - name: gridX
+          in: path
+          required: true
+          description: Grid X coordinate (integer)
+          schema:
+            type: integer
+        - name: gridY
+          in: path
+          required: true
+          description: Grid Y coordinate (integer)
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Forecast returned successfully
+          content:
+            application/geo+json:
+              schema:
+                type: object
+        '400':
+          description: Bad request (invalid grid or office)
+        '404':
+          description: Forecast not found
+        '500':
+          description: Internal server error
