@@ -1,68 +1,62 @@
 openapi: 3.0.0
 info:
   title: National Weather Service API
-  description: |
-    Access weather forecast and location metadata from the U.S. National Weather Service (NWS).
-    
-    This schema defines two endpoints:
-    - `/points/{latitude},{longitude}`: Returns metadata about a geographic point, including forecast grid and office.
-    - `/gridpoints/{office}/{gridX},{gridY}/forecast`: Returns forecast for a specific gridpoint.
-
-    **Important:** The `User-Agent` header is required for all API requests. Format: `"app-name (contact@example.com)"`.
   version: 1.0.0
+  description: |
+    This API provides weather forecast data from the U.S. National Weather Service.
+
+    Endpoints:
+    - `/points/{latitude},{longitude}`: Returns a forecast URL for the location.
+    - `/gridpoints/{office}/{gridX},{gridY}/forecast`: Returns simplified weather forecast data.
+
+    ⚠️ Important: You must include a `User-Agent` header with all requests.
+    Format: `app-name (contact@example.com)`
 servers:
   - url: https://api.weather.gov
-    description: National Weather Service Production Server
 paths:
   /points/{latitude},{longitude}:
     get:
-      operationId: getPointMetadata
-      summary: Get metadata for a specific latitude and longitude
-      description: Returns metadata for the provided geographic coordinates, including the forecast grid and office.
+      operationId: getPointForecastUrl
+      summary: Get forecast URL for a location
+      description: |
+        Returns the forecast URL for the given latitude and longitude.
+        Include a valid `User-Agent` header with your request.
       parameters:
         - name: latitude
           in: path
           required: true
-          description: Latitude of the location (e.g., 38.8977)
+          description: Latitude of the location
           schema:
             type: number
-            format: float
         - name: longitude
           in: path
           required: true
-          description: Longitude of the location (e.g., -77.0365)
+          description: Longitude of the location
           schema:
             type: number
-            format: float
-        - name: User-Agent
-          in: header
-          required: true
-          description: Required by NWS. Format: app-name (contact@example.com)
-          schema:
-            type: string
       responses:
         '200':
-          description: Successfully retrieved point metadata
+          description: Forecast URL retrieved
           content:
-            application/geo+json:
+            application/json:
               schema:
                 type: object
                 properties:
-                  properties:
-                    type: object
-                    properties:
-                      forecast:
-                        type: string
-                        description: URL of the forecast data for this location
+                  forecast:
+                    type: string
+                    description: Forecast endpoint URL
         '400':
-          description: Invalid latitude or longitude
+          description: Invalid input
         '404':
-          description: Location not found
+          description: Not found
+
   /gridpoints/{office}/{gridX},{gridY}/forecast:
     get:
-      operationId: getGridpointForecast
-      summary: Get forecast for a specific grid point
-      description: Returns weather forecast for the specified grid coordinates and forecast office.
+      operationId: getSimpleForecast
+      summary: Get simplified weather forecast for grid location
+      description: |
+        Returns basic weather forecast for the provided grid location.
+        Include a valid `User-Agent` header with your request.
       parameters:
         - name: office
           in: path
@@ -82,35 +76,22 @@ paths:
           description: Grid Y coordinate
           schema:
             type: integer
-        - name: User-Agent
-          in: header
-          required: true
-          description: Required by NWS. Format: app-name (contact@example.com)
-          schema:
-            type: string
       responses:
         '200':
-          description: Successfully retrieved forecast
+          description: Forecast data retrieved
           content:
-            application/geo+json:
+            application/json:
               schema:
                 type: object
                 properties:
-                  properties:
-                    type: object
-                    properties:
-                      periods:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            temperature:
-                              type: number
-                            temperatureUnit:
-                              type: string
-                            detailedForecast:
-                              type: string
+                  day1:
+                    type: string
+                    description: Forecast summary for the first day
+                  day2:
+                    type: string
+                    description: Forecast summary for the second day
+                  day3:
+                    type: string
+                    description: Forecast summary for the third day
         '404':
-          description: Forecast not found
+          description: Not found
