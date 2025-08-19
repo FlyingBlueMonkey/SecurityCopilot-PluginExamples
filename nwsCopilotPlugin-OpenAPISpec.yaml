@@ -2,14 +2,14 @@ openapi: 3.0.0
 info:
   title: National Weather Service API
   version: 1.0.0
-  description: |
+  description: >
     This API provides weather forecast data from the U.S. National Weather Service.
 
     Endpoints:
     - `/points/{latitude},{longitude}`: Returns a forecast URL for the location.
     - `/gridpoints/{office}/{gridX},{gridY}/forecast`: Returns simplified weather forecast data.
 
-    ⚠️ Important: You must include a `User-Agent` header with all requests.
+    NOTE: You must include a `User-Agent` header with all requests.
     Format: `app-name (contact@example.com)`
 servers:
   - url: https://api.weather.gov
@@ -18,25 +18,25 @@ paths:
     get:
       operationId: getPointForecastUrl
       summary: Get forecast URL for a location
-      description: |
+      description: >
         Returns the forecast URL for the given latitude and longitude.
         Include a valid `User-Agent` header with your request.
       parameters:
         - name: latitude
           in: path
           required: true
-          description: Latitude of the location
+          description: "Latitude of the location"
           schema:
             type: number
         - name: longitude
           in: path
           required: true
-          description: Longitude of the location
+          description: "Longitude of the location"
           schema:
             type: number
       responses:
         '200':
-          description: Forecast URL retrieved
+          description: "Forecast URL retrieved"
           content:
             application/json:
               schema:
@@ -44,41 +44,41 @@ paths:
                 properties:
                   forecast:
                     type: string
-                    description: Forecast endpoint URL
+                    description: "Forecast endpoint URL"
         '400':
-          description: Invalid input
+          description: "Invalid input"
         '404':
-          description: Not found
+          description: "Not found"
 
   /gridpoints/{office}/{gridX},{gridY}/forecast:
     get:
       operationId: getSimpleForecast
       summary: Get simplified weather forecast for grid location
-      description: |
+      description: >
         Returns basic weather forecast for the provided grid location.
         Include a valid `User-Agent` header with your request.
       parameters:
         - name: office
           in: path
           required: true
-          description: Forecast office ID (e.g., "LWX")
+          description: "Forecast office ID (e.g., LWX)"
           schema:
             type: string
         - name: gridX
           in: path
           required: true
-          description: Grid X coordinate
+          description: "Grid X coordinate"
           schema:
             type: integer
         - name: gridY
           in: path
           required: true
-          description: Grid Y coordinate
+          description: "Grid Y coordinate"
           schema:
             type: integer
       responses:
         '200':
-          description: Forecast data retrieved
+          description: "Forecast data retrieved"
           content:
             application/json:
               schema:
@@ -86,12 +86,12 @@ paths:
                 properties:
                   day1:
                     type: string
-                    description: Forecast summary for the first day
+                    description: "Forecast summary for day 1"
                   day2:
                     type: string
-                    description: Forecast summary for the second day
+                    description: "Forecast summary for day 2"
                   day3:
                     type: string
-                    description: Forecast summary for the third day
+                    description: "Forecast summary for day 3"
         '404':
-          description: Not found
+          description: "Not found"
