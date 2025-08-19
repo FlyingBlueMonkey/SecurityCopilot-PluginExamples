@@ -8,11 +8,12 @@ Descriptor:
     - GetWeather: Retrieves current weather conditions for a specific location.
     - GetForecast: Retrieves the weather forecast for a specific location.
   Category: Other
-  Icon: https://www.weather.gov/images/brand/Weather-Logo-White.png
+  Icon: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/PluginExample.svg
 
 SkillGroups:
   - Format: API
     Settings:
 
       OpenApiSpecUrl: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/nwsCopilotPlugin-OpenAPISpec.yaml
+
 
