@@ -20,4 +20,5 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://gist.githubusercontent.com/flyingbluemonkey/somethingsomething/nwsCopilotPlugin-OpenAPI.yaml
+
+      OpenApiSpecUrl: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/nwsCopilotPlugin-OpenAPISpec.yaml
