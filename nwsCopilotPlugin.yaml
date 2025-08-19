@@ -9,16 +9,10 @@ Descriptor:
     - GetForecast: Retrieves the weather forecast for a specific location.
   Category: Other
   Icon: https://www.weather.gov/images/brand/Weather-Logo-White.png
-  SupportedAuthTypes:
-    - ApiKey
-  Authorization:
-    Type: APIKey
-    Key: Key
-    Location: Header
-    AuthScheme: ''
 
 SkillGroups:
   - Format: API
     Settings:
 
       OpenApiSpecUrl: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/nwsCopilotPlugin-OpenAPISpec.yaml
+
