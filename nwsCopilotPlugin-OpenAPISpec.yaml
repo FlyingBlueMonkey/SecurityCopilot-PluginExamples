@@ -2,9 +2,13 @@ openapi: 3.0.0
 info:
   title: National Weather Service API
   description: |
-    Access weather forecast and metadata from the U.S. National Weather Service (NWS).
-    This schema defines the `/points/{latitude},{longitude}` and `/gridpoints/{office}/{gridX},{gridY}/forecast` endpoints.
-    **Note:** You must include a `User-Agent` header in all requests (e.g., `"User-Agent: my-app-name (your-email@example.com)"`).
+    Access weather forecast and location metadata from the U.S. National Weather Service (NWS).
+    
+    This schema defines two endpoints:
+    - `/points/{latitude},{longitude}`: Returns metadata about a geographic point, including forecast grid and office.
+    - `/gridpoints/{office}/{gridX},{gridY}/forecast`: Returns forecast for a specific gridpoint.
+
+    **Important:** The `User-Agent` header is required for all API requests. Format: `"app-name (contact@example.com)"`.
   version: 1.0.0
 servers:
   - url: https://api.weather.gov
@@ -14,7 +18,7 @@ paths:
     get:
       operationId: getPointMetadata
       summary: Get metadata for a specific latitude and longitude
-      description: Returns metadata for the provided geographic coordinates, including forecast grid info and forecast office.
+      description: Returns metadata for the provided geographic coordinates, including the forecast grid and office.
       parameters:
         - name: latitude
           in: path
@@ -30,6 +34,12 @@ paths:
           schema:
             type: number
             format: float
+        - name: User-Agent
+          in: header
+          required: true
+          description: Required by NWS. Format: app-name (contact@example.com)
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully retrieved point metadata
@@ -72,6 +82,12 @@ paths:
           description: Grid Y coordinate
           schema:
             type: integer
+        - name: User-Agent
+          in: header
+          required: true
+          description: Required by NWS. Format: app-name (contact@example.com)
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully retrieved forecast
