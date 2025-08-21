@@ -15,7 +15,7 @@ SkillGroups:
     Settings:
       # Publicly reachable URL to your OpenAPI 3.0 YAML or the Swagger JSON endpoint.
       # Example: https://<your-fqdn>/openapi.yaml
-      OpenApiSpecUrl: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/rdapAPI-SecurityCopilotSkill.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/FlyingBlueMonkey/SecurityCopilot-PluginExamples/refs/heads/main/rdapAPI-OpenAPISpec.yaml
 
 
 
