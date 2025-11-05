@@ -4,7 +4,7 @@ Descriptor:
   DescriptionDisplay: Perform RDAP lookups for domains using a custom API.
   Description: |-
     Use this skill-set to perform RDAP lookups for a given domain.
-    - This skill invoke the RDAP API lookup skill.
+    - This skill invokes the RDAP API lookup skill.
     - GetRDAPDomain: Retrieves RDAP details for a domain name.
     - Health and Echo endpoints are available for quick validation.
   Category: Other
